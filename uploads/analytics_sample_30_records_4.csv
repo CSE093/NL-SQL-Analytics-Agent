@@ -1,0 +1,31 @@
+OrderID,Date,Category,Product,Quantity,Revenue,City
+1,2026-05-01,Electronics,Laptop,2,55000,Chennai
+2,2026-05-01,Electronics,Mouse,5,700,Coimbatore
+3,2026-05-02,Groceries,Rice,10,1200,Salem
+4,2026-05-02,Fashion,Shirt,3,900,Erode
+5,2026-05-03,Electronics,Keyboard,4,1200,Madurai
+6,2026-05-03,Groceries,Oil,6,1500,Trichy
+7,2026-05-04,Fashion,Jeans,2,1800,Chennai
+8,2026-05-04,Electronics,Monitor,1,12000,Salem
+9,2026-05-05,Groceries,Sugar,8,600,Erode
+10,2026-05-05,Fashion,Shoes,2,2500,Madurai
+11,2026-05-06,Electronics,Tablet,1,22000,Chennai
+12,2026-05-06,Groceries,Milk,15,60,Coimbatore
+13,2026-05-07,Fashion,T-Shirt,5,500,Salem
+14,2026-05-07,Electronics,Headphones,3,1800,Trichy
+15,2026-05-08,Groceries,Tea Powder,4,350,Erode
+16,2026-05-08,Fashion,Jacket,1,3200,Chennai
+17,2026-05-09,Electronics,Smartphone,2,30000,Madurai
+18,2026-05-09,Groceries,Biscuits,12,40,Coimbatore
+19,2026-05-10,Fashion,Cap,6,250,Salem
+20,2026-05-10,Electronics,Speaker,2,4500,Trichy
+21,2026-05-11,Groceries,Coffee,3,450,Chennai
+22,2026-05-11,Fashion,Saree,2,2500,Erode
+23,2026-05-12,Electronics,Printer,1,9000,Coimbatore
+24,2026-05-12,Groceries,Wheat Flour,5,700,Madurai
+25,2026-05-13,Fashion,Watch,2,1800,Salem
+26,2026-05-13,Electronics,Power Bank,4,1200,Chennai
+27,2026-05-14,Groceries,Salt,10,50,Trichy
+28,2026-05-14,Fashion,Kurti,3,1100,Coimbatore
+29,2026-05-15,Electronics,Webcam,2,2200,Erode
+30,2026-05-15,Groceries,Juice,7,120,Madurai

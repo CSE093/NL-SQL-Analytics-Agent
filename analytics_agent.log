@@ -1,0 +1,1322 @@
+2026-06-07 09:36:19,949 [INFO] agent.graph: Initializing LangGraph workflow builder...
+2026-06-07 09:36:19,958 [INFO] agent.graph: Compiling StateGraph flow...
+2026-06-07 09:36:21,128 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 09:36:21,157 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 09:36:21,182 [INFO] tools.schema_tool: Discovering database schema...
+2026-06-07 09:36:21,196 [INFO] tools.schema_tool: Schema discovered successfully: ['orders_1', 'products', 'test_csv_data']
+2026-06-07 09:39:11,427 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 09:39:11,436 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 09:39:11,448 [INFO] services.upload_service: Saved uploaded file to uploads\analytics_sample_30_records.csv
+2026-06-07 09:39:11,489 [INFO] services.upload_service: Successfully imported table 'analytics_sample_30_records' with 30 rows.
+2026-06-07 09:39:11,491 [INFO] tools.schema_tool: Database schema cache invalidated.
+2026-06-07 09:39:11,501 [INFO] tools.schema_tool: Discovering database schema...
+2026-06-07 09:39:11,509 [INFO] tools.schema_tool: Schema discovered successfully: ['analytics_sample_30_records', 'customers', 'orders_1', 'products', 'sales', 'test_csv_data']
+2026-06-07 09:39:56,901 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 09:39:56,909 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 09:39:57,006 [INFO] agent.controller: Controller starting stream for query: 'Which category has the highest number of orders?'
+2026-06-07 09:39:57,013 [INFO] agent.workflow: --- NODE: Discover Schema ---
+2026-06-07 09:39:57,017 [INFO] ui.dashboard: Node execution: discover_schema | Status: Schema discovered successfully.
+2026-06-07 09:39:57,019 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 09:39:57,020 [INFO] agent.workflow: Attempting first-time SQL generation.
+2026-06-07 09:39:57,020 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 09:40:09,555 [INFO] agent.workflow: Extracted SQL: SELECT category FROM analytics_sample_30_records GROUP BY category ORDER BY COUNT(orderid) DESC LIMIT 1;
+2026-06-07 09:40:09,557 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 09:40:09,558 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 09:40:09,569 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 09:40:09,571 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 09:40:09,573 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 09:40:09,573 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT category FROM analytics_sample_30_records GROUP BY category ORDER BY COUNT(orderid) DESC LIMIT 1;
+2026-06-07 09:40:09,578 [INFO] tools.sql_tool: SQL query executed successfully in 2.77ms. Rows returned: 1
+2026-06-07 09:40:09,578 [INFO] agent.workflow: SQL executed successfully.
+2026-06-07 09:40:09,583 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL executed successfully.
+2026-06-07 09:40:09,583 [INFO] agent.workflow: --- NODE: Explain Results ---
+2026-06-07 09:40:09,586 [INFO] tools.explanation_tool: Generating business explanation for query results...
+2026-06-07 09:40:09,600 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 09:40:22,190 [INFO] ui.dashboard: Node execution: explain_result | Status: Explanation generated.
+2026-06-07 09:40:22,191 [INFO] agent.workflow: --- NODE: Generate Chart ---
+2026-06-07 09:40:22,193 [INFO] ui.dashboard: Node execution: generate_chart | Status: Workflow completed.
+2026-06-07 09:40:22,261 [INFO] services.history_service: Logged query history entry. Success: True
+2026-06-07 09:41:15,944 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 09:41:15,952 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 09:41:16,071 [INFO] agent.controller: Controller starting stream for query: 'Show total revenue by category.'
+2026-06-07 09:41:16,073 [INFO] agent.workflow: --- NODE: Discover Schema ---
+2026-06-07 09:41:16,073 [INFO] ui.dashboard: Node execution: discover_schema | Status: Schema discovered successfully.
+2026-06-07 09:41:16,077 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 09:41:16,077 [INFO] agent.workflow: Attempting first-time SQL generation.
+2026-06-07 09:41:16,077 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 09:41:20,724 [INFO] agent.workflow: Extracted SQL: SELECT 
+    category,
+    SUM(revenue) AS total_revenue
+FROM 
+    analytics_sample_30_records
+GROUP BY 
+    category;
+2026-06-07 09:41:20,725 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 09:41:20,727 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 09:41:20,732 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 09:41:20,734 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 09:41:20,734 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 09:41:20,736 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT 
+    category,
+    SUM(revenue) AS total_revenue
+FROM 
+    analytics_sample_30_records
+GROUP BY 
+    category;
+2026-06-07 09:41:20,742 [INFO] tools.sql_tool: SQL query executed successfully in 2.01ms. Rows returned: 3
+2026-06-07 09:41:20,742 [INFO] agent.workflow: SQL executed successfully.
+2026-06-07 09:41:20,746 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL executed successfully.
+2026-06-07 09:41:20,748 [INFO] agent.workflow: --- NODE: Explain Results ---
+2026-06-07 09:41:20,748 [INFO] tools.explanation_tool: Generating business explanation for query results...
+2026-06-07 09:41:20,750 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 09:41:37,035 [INFO] ui.dashboard: Node execution: explain_result | Status: Explanation generated.
+2026-06-07 09:41:37,036 [INFO] agent.workflow: --- NODE: Generate Chart ---
+2026-06-07 09:41:37,037 [INFO] tools.chart_tool: Column detection - Dates: [], Numerics: ['total_revenue'], Categoricals: ['category']
+2026-06-07 09:41:37,516 [INFO] ui.dashboard: Node execution: generate_chart | Status: Workflow completed.
+2026-06-07 09:41:37,529 [INFO] services.history_service: Logged query history entry. Success: True
+2026-06-07 10:27:51,335 [INFO] agent.graph: Initializing LangGraph workflow builder...
+2026-06-07 10:27:51,335 [INFO] agent.graph: Compiling StateGraph flow...
+2026-06-07 10:27:51,618 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 10:27:51,627 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 10:27:51,633 [INFO] tools.schema_tool: Discovering database schema...
+2026-06-07 10:27:51,638 [INFO] tools.schema_tool: Schema discovered successfully: ['analytics_sample_30_records', 'customers', 'orders_1', 'products', 'sales', 'test_csv_data']
+2026-06-07 10:28:06,988 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 10:28:06,993 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 10:28:07,010 [INFO] services.upload_service: Saved uploaded file to uploads\analytics_sample_30_records_1.csv
+2026-06-07 10:28:07,076 [INFO] services.upload_service: Successfully imported table 'analytics_sample_30_records_1' with 30 rows.
+2026-06-07 10:28:07,078 [INFO] tools.schema_tool: Database schema cache invalidated.
+2026-06-07 10:28:07,087 [INFO] tools.schema_tool: Discovering database schema...
+2026-06-07 10:28:07,102 [INFO] tools.schema_tool: Schema discovered successfully: ['analytics_sample_30_records', 'analytics_sample_30_records_1', 'customers', 'orders_1', 'products', 'sales', 'test_csv_data']
+2026-06-07 10:28:30,768 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 10:28:30,776 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 10:28:30,899 [INFO] agent.controller: Controller starting stream for query: 'Compare quantity sold and revenue for each category.'
+2026-06-07 10:28:30,907 [INFO] agent.workflow: --- NODE: Discover Schema ---
+2026-06-07 10:28:30,909 [INFO] ui.dashboard: Node execution: discover_schema | Status: Schema discovered successfully.
+2026-06-07 10:28:30,913 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 10:28:30,914 [INFO] agent.workflow: Attempting first-time SQL generation.
+2026-06-07 10:28:30,918 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 10:28:45,864 [INFO] agent.workflow: Extracted SQL: SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )
+2026-06-07 10:28:45,865 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 10:28:45,867 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 10:28:45,887 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 10:28:45,887 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 10:28:45,890 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 10:28:45,890 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )
+2026-06-07 10:28:45,911 [ERROR] services.sqlite_service: Read-only query execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )': no such column: c.category | Query: SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )
+2026-06-07 10:28:45,911 [ERROR] tools.sql_tool: SQL execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )': no such column: c.category
+2026-06-07 10:28:45,913 [WARNING] agent.workflow: SQL execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )': no such column: c.category
+2026-06-07 10:28:45,913 [INFO] agent.retry_logic: Retry Check - Count: 1/3 | Has errors: True | Success: False | Can retry: True
+2026-06-07 10:28:45,913 [INFO] agent.workflow: Routing back to regenerate SQL after execution error.
+2026-06-07 10:28:45,913 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL Execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )': no such column: c.category
+2026-06-07 10:28:45,917 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 10:28:45,918 [INFO] agent.workflow: Attempting SQL refinement. Retry count: 1
+2026-06-07 10:28:45,918 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 10:29:00,822 [INFO] agent.workflow: Extracted SQL: SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )
+2026-06-07 10:29:00,823 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 10:29:00,825 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 10:29:00,837 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 10:29:00,839 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 10:29:00,841 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 10:29:00,841 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )
+2026-06-07 10:29:00,856 [ERROR] services.sqlite_service: Read-only query execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )': no such column: c.category | Query: SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )
+2026-06-07 10:29:00,856 [ERROR] tools.sql_tool: SQL execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )': no such column: c.category
+2026-06-07 10:29:00,858 [WARNING] agent.workflow: SQL execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )': no such column: c.category
+2026-06-07 10:29:00,858 [INFO] agent.retry_logic: Retry Check - Count: 2/3 | Has errors: True | Success: False | Can retry: True
+2026-06-07 10:29:00,858 [INFO] agent.workflow: Routing back to regenerate SQL after execution error.
+2026-06-07 10:29:00,860 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL Execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )': no such column: c.category
+2026-06-07 10:29:00,862 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 10:29:00,864 [INFO] agent.workflow: Attempting SQL refinement. Retry count: 2
+2026-06-07 10:29:00,864 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 10:29:08,059 [INFO] agent.workflow: Extracted SQL: SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )
+2026-06-07 10:29:08,061 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 10:29:08,063 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 10:29:08,082 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 10:29:08,084 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 10:29:08,084 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 10:29:08,087 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )
+2026-06-07 10:29:08,101 [ERROR] services.sqlite_service: Read-only query execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )': no such column: c.category | Query: SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )
+2026-06-07 10:29:08,103 [ERROR] tools.sql_tool: SQL execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )': no such column: c.category
+2026-06-07 10:29:08,103 [WARNING] agent.workflow: SQL execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )': no such column: c.category
+2026-06-07 10:29:08,105 [INFO] agent.retry_logic: Retry Check - Count: 3/3 | Has errors: True | Success: False | Can retry: False
+2026-06-07 10:29:08,105 [INFO] agent.workflow: Max retries exceeded or retry disallowed. Exiting.
+2026-06-07 10:29:08,105 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL Execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    s.quantity AS "Quantity Sold",
+    s.revenue AS "Revenue"
+FROM 
+    analytics_sample_30_records s
+INNER JOIN 
+    customers c ON s.customer_id = c.id
+INNER JOIN 
+    products p ON s.product_id = p.product_id
+WHERE 
+    p.category IN (
+        SELECT category FROM analytics_sample_30_records WHERE revenue > (SELECT MAX(revenue) FROM analytics_sample_30_records)
+    )': no such column: c.category
+2026-06-07 10:29:08,117 [INFO] services.history_service: Logged query history entry. Success: False
+2026-06-07 10:29:13,834 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 10:29:13,845 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 10:29:13,951 [INFO] agent.controller: Controller starting stream for query: 'Show quantity sold by category.'
+2026-06-07 10:29:13,951 [INFO] agent.workflow: --- NODE: Discover Schema ---
+2026-06-07 10:29:13,951 [INFO] ui.dashboard: Node execution: discover_schema | Status: Schema discovered successfully.
+2026-06-07 10:29:13,959 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 10:29:13,961 [INFO] agent.workflow: Attempting first-time SQL generation.
+2026-06-07 10:29:13,965 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 10:29:15,398 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 10:29:15,407 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 10:29:15,510 [INFO] agent.controller: Controller starting stream for query: 'Show quantity sold by category.'
+2026-06-07 10:29:15,510 [INFO] agent.workflow: --- NODE: Discover Schema ---
+2026-06-07 10:29:15,512 [INFO] ui.dashboard: Node execution: discover_schema | Status: Schema discovered successfully.
+2026-06-07 10:29:15,512 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 10:29:15,517 [INFO] agent.workflow: Attempting first-time SQL generation.
+2026-06-07 10:29:15,517 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 10:29:16,385 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 10:29:16,392 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 10:29:16,499 [INFO] agent.controller: Controller starting stream for query: 'Show quantity sold by category.'
+2026-06-07 10:29:16,500 [INFO] agent.workflow: --- NODE: Discover Schema ---
+2026-06-07 10:29:16,500 [INFO] ui.dashboard: Node execution: discover_schema | Status: Schema discovered successfully.
+2026-06-07 10:29:16,505 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 10:29:16,505 [INFO] agent.workflow: Attempting first-time SQL generation.
+2026-06-07 10:29:16,508 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 10:29:17,388 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 10:29:17,394 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 10:29:17,500 [INFO] agent.controller: Controller starting stream for query: 'Show quantity sold by category.'
+2026-06-07 10:29:17,503 [INFO] agent.workflow: --- NODE: Discover Schema ---
+2026-06-07 10:29:17,505 [INFO] ui.dashboard: Node execution: discover_schema | Status: Schema discovered successfully.
+2026-06-07 10:29:17,507 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 10:29:17,508 [INFO] agent.workflow: Attempting first-time SQL generation.
+2026-06-07 10:29:17,508 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 10:29:20,942 [INFO] agent.workflow: Extracted SQL: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;
+2026-06-07 10:29:20,943 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 10:29:24,707 [INFO] agent.workflow: Extracted SQL: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;
+2026-06-07 10:29:24,708 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 10:29:28,748 [INFO] agent.workflow: Extracted SQL: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;
+2026-06-07 10:29:28,749 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 10:29:33,363 [INFO] agent.workflow: Extracted SQL: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;
+2026-06-07 10:29:33,364 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 10:29:33,366 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 10:29:33,379 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 10:29:33,381 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 10:29:33,384 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 10:29:33,384 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;
+2026-06-07 10:29:33,400 [ERROR] services.sqlite_service: Read-only query execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;': no such column: c.category | Query: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;
+2026-06-07 10:29:33,403 [ERROR] tools.sql_tool: SQL execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 10:29:33,403 [WARNING] agent.workflow: SQL execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 10:29:33,403 [INFO] agent.retry_logic: Retry Check - Count: 1/3 | Has errors: True | Success: False | Can retry: True
+2026-06-07 10:29:33,403 [INFO] agent.workflow: Routing back to regenerate SQL after execution error.
+2026-06-07 10:29:33,405 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL Execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 10:29:33,407 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 10:29:33,409 [INFO] agent.workflow: Attempting SQL refinement. Retry count: 1
+2026-06-07 10:29:33,409 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 10:29:48,382 [INFO] agent.workflow: Extracted SQL: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;
+2026-06-07 10:29:48,384 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 10:29:48,386 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 10:29:48,400 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 10:29:48,401 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 10:29:48,401 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 10:29:48,404 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;
+2026-06-07 10:29:48,420 [ERROR] services.sqlite_service: Read-only query execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;': no such column: c.category | Query: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;
+2026-06-07 10:29:48,420 [ERROR] tools.sql_tool: SQL execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 10:29:48,420 [WARNING] agent.workflow: SQL execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 10:29:48,422 [INFO] agent.retry_logic: Retry Check - Count: 2/3 | Has errors: True | Success: False | Can retry: True
+2026-06-07 10:29:48,422 [INFO] agent.workflow: Routing back to regenerate SQL after execution error.
+2026-06-07 10:29:48,422 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL Execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 10:29:48,424 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 10:29:48,426 [INFO] agent.workflow: Attempting SQL refinement. Retry count: 2
+2026-06-07 10:29:48,426 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 10:29:55,084 [INFO] agent.workflow: Extracted SQL: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;
+2026-06-07 10:29:55,085 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 10:29:55,087 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 10:29:55,095 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 10:29:55,097 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 10:29:55,099 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 10:29:55,101 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;
+2026-06-07 10:29:55,112 [ERROR] services.sqlite_service: Read-only query execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;': no such column: c.category | Query: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;
+2026-06-07 10:29:55,114 [ERROR] tools.sql_tool: SQL execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 10:29:55,114 [WARNING] agent.workflow: SQL execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 10:29:55,114 [INFO] agent.retry_logic: Retry Check - Count: 3/3 | Has errors: True | Success: False | Can retry: False
+2026-06-07 10:29:55,114 [INFO] agent.workflow: Max retries exceeded or retry disallowed. Exiting.
+2026-06-07 10:29:55,116 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL Execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    orders_1 o ON s.order_id = o.order_id
+JOIN 
+    products p ON o.product_id = p.product_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 10:29:55,149 [INFO] services.history_service: Logged query history entry. Success: False
+2026-06-07 10:31:06,101 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 10:31:06,109 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 10:31:22,843 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 10:31:22,851 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 10:31:22,968 [INFO] agent.controller: Controller starting stream for query: 'What is the average revenue per order?'
+2026-06-07 10:31:22,968 [INFO] agent.workflow: --- NODE: Discover Schema ---
+2026-06-07 10:31:22,968 [INFO] ui.dashboard: Node execution: discover_schema | Status: Schema discovered successfully.
+2026-06-07 10:31:22,968 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 10:31:22,976 [INFO] agent.workflow: Attempting first-time SQL generation.
+2026-06-07 10:31:22,978 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 10:31:27,119 [INFO] agent.workflow: Extracted SQL: SELECT AVG(revenue) AS avg_revenue_per_order FROM analytics_sample_30_records;
+2026-06-07 10:31:27,119 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 10:31:27,121 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 10:31:27,124 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 10:31:27,125 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 10:31:27,127 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 10:31:27,128 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT AVG(revenue) AS avg_revenue_per_order FROM analytics_sample_30_records;
+2026-06-07 10:31:27,133 [INFO] tools.sql_tool: SQL query executed successfully in 1.81ms. Rows returned: 1
+2026-06-07 10:31:27,133 [INFO] agent.workflow: SQL executed successfully.
+2026-06-07 10:31:27,134 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL executed successfully.
+2026-06-07 10:31:27,136 [INFO] agent.workflow: --- NODE: Explain Results ---
+2026-06-07 10:31:27,136 [INFO] tools.explanation_tool: Generating business explanation for query results...
+2026-06-07 10:31:27,149 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 10:31:43,736 [INFO] ui.dashboard: Node execution: explain_result | Status: Explanation generated.
+2026-06-07 10:31:43,742 [INFO] agent.workflow: --- NODE: Generate Chart ---
+2026-06-07 10:31:43,744 [INFO] ui.dashboard: Node execution: generate_chart | Status: Workflow completed.
+2026-06-07 10:31:43,794 [INFO] services.history_service: Logged query history entry. Success: True
+2026-06-07 10:32:18,018 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 10:32:18,022 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 10:32:18,140 [INFO] agent.controller: Controller starting stream for query: 'Show total revenue by city.'
+2026-06-07 10:32:18,140 [INFO] agent.workflow: --- NODE: Discover Schema ---
+2026-06-07 10:32:18,140 [INFO] ui.dashboard: Node execution: discover_schema | Status: Schema discovered successfully.
+2026-06-07 10:32:18,148 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 10:32:18,150 [INFO] agent.workflow: Attempting first-time SQL generation.
+2026-06-07 10:32:18,150 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 10:32:22,465 [INFO] agent.workflow: Extracted SQL: SELECT city, SUM(revenue) AS total_revenue
+FROM analytics_sample_30_records
+GROUP BY city;
+2026-06-07 10:32:22,466 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 10:32:22,466 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 10:32:22,470 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 10:32:22,472 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 10:32:22,474 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 10:32:22,474 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT city, SUM(revenue) AS total_revenue
+FROM analytics_sample_30_records
+GROUP BY city;
+2026-06-07 10:32:22,482 [INFO] tools.sql_tool: SQL query executed successfully in 2.68ms. Rows returned: 6
+2026-06-07 10:32:22,482 [INFO] agent.workflow: SQL executed successfully.
+2026-06-07 10:32:22,484 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL executed successfully.
+2026-06-07 10:32:22,484 [INFO] agent.workflow: --- NODE: Explain Results ---
+2026-06-07 10:32:22,487 [INFO] tools.explanation_tool: Generating business explanation for query results...
+2026-06-07 10:32:22,487 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 10:32:37,452 [INFO] ui.dashboard: Node execution: explain_result | Status: Explanation generated.
+2026-06-07 10:32:37,454 [INFO] agent.workflow: --- NODE: Generate Chart ---
+2026-06-07 10:32:37,455 [INFO] tools.chart_tool: Column detection - Dates: [], Numerics: ['total_revenue'], Categoricals: ['city']
+2026-06-07 10:32:37,834 [INFO] ui.dashboard: Node execution: generate_chart | Status: Workflow completed.
+2026-06-07 10:32:37,874 [INFO] services.history_service: Logged query history entry. Success: True
+2026-06-07 10:44:21,545 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 10:44:21,545 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 11:12:17,894 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 11:12:17,900 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 11:13:02,898 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 11:13:02,903 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 11:13:03,029 [INFO] agent.controller: Controller starting stream for query: 'Show total revenue by category.'
+2026-06-07 11:13:03,033 [INFO] agent.workflow: --- NODE: Discover Schema ---
+2026-06-07 11:13:03,035 [INFO] ui.dashboard: Node execution: discover_schema | Status: Schema discovered successfully.
+2026-06-07 11:13:03,040 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 11:13:03,042 [INFO] agent.workflow: Attempting first-time SQL generation.
+2026-06-07 11:13:03,043 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 11:13:15,802 [INFO] agent.workflow: Extracted SQL: SELECT 
+    category,
+    SUM(revenue) AS total_revenue
+FROM 
+    analytics_sample_30_records
+GROUP BY 
+    category;
+2026-06-07 11:13:15,803 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 11:13:15,805 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 11:13:15,811 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 11:13:15,813 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 11:13:15,817 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 11:13:15,818 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT 
+    category,
+    SUM(revenue) AS total_revenue
+FROM 
+    analytics_sample_30_records
+GROUP BY 
+    category;
+2026-06-07 11:13:15,827 [INFO] tools.sql_tool: SQL query executed successfully in 2.98ms. Rows returned: 3
+2026-06-07 11:13:15,827 [INFO] agent.workflow: SQL executed successfully.
+2026-06-07 11:13:15,829 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL executed successfully.
+2026-06-07 11:13:15,831 [INFO] agent.workflow: --- NODE: Explain Results ---
+2026-06-07 11:13:15,831 [INFO] tools.explanation_tool: Generating business explanation for query results...
+2026-06-07 11:13:15,835 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 11:13:35,261 [INFO] ui.dashboard: Node execution: explain_result | Status: Explanation generated.
+2026-06-07 11:13:35,262 [INFO] agent.workflow: --- NODE: Generate Chart ---
+2026-06-07 11:13:35,263 [INFO] tools.chart_tool: Column detection - Dates: [], Numerics: ['total_revenue'], Categoricals: ['category']
+2026-06-07 11:13:35,332 [INFO] ui.dashboard: Node execution: generate_chart | Status: Workflow completed.
+2026-06-07 11:13:35,366 [INFO] services.history_service: Logged query history entry. Success: True
+2026-06-07 11:27:17,729 [ERROR] asyncio: Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\events.py", line 80, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\USER\AppData\Local\Programs\Python\Python310\lib\asyncio\proactor_events.py", line 162, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+2026-06-07 11:43:52,894 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 11:43:52,899 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 11:45:31,124 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 11:45:31,132 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 11:46:01,798 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 11:46:01,798 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 11:47:06,269 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 11:47:06,275 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 11:47:06,291 [INFO] services.upload_service: Saved uploaded file to uploads\analytics_sample_30_records_2.csv
+2026-06-07 11:47:06,370 [INFO] services.upload_service: Successfully imported table 'analytics_sample_30_records_2' with 30 rows.
+2026-06-07 11:47:06,371 [INFO] tools.schema_tool: Database schema cache invalidated.
+2026-06-07 11:47:06,385 [INFO] tools.schema_tool: Discovering database schema...
+2026-06-07 11:47:06,423 [INFO] tools.schema_tool: Schema discovered successfully: ['analytics_sample_30_records', 'analytics_sample_30_records_1', 'analytics_sample_30_records_2', 'customers', 'orders_1', 'products', 'sales', 'test_csv_data']
+2026-06-07 11:48:04,774 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 11:48:04,782 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 11:48:04,894 [INFO] agent.controller: Controller starting stream for query: 'Show quantity sold by category.'
+2026-06-07 11:48:04,896 [INFO] agent.workflow: --- NODE: Discover Schema ---
+2026-06-07 11:48:04,897 [INFO] ui.dashboard: Node execution: discover_schema | Status: Schema discovered successfully.
+2026-06-07 11:48:04,899 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 11:48:04,900 [INFO] agent.workflow: Attempting first-time SQL generation.
+2026-06-07 11:48:04,901 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 11:48:19,867 [INFO] agent.workflow: Extracted SQL: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    products p ON s.product_id = p.product_id
+GROUP BY 
+    c.category;
+2026-06-07 11:48:19,868 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 11:48:19,871 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 11:48:19,887 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 11:48:19,890 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 11:48:19,892 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 11:48:19,893 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    products p ON s.product_id = p.product_id
+GROUP BY 
+    c.category;
+2026-06-07 11:48:19,904 [ERROR] services.sqlite_service: Read-only query execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    products p ON s.product_id = p.product_id
+GROUP BY 
+    c.category;': no such column: c.category | Query: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    products p ON s.product_id = p.product_id
+GROUP BY 
+    c.category;
+2026-06-07 11:48:19,904 [ERROR] tools.sql_tool: SQL execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    products p ON s.product_id = p.product_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 11:48:19,904 [WARNING] agent.workflow: SQL execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    products p ON s.product_id = p.product_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 11:48:19,906 [INFO] agent.retry_logic: Retry Check - Count: 1/3 | Has errors: True | Success: False | Can retry: True
+2026-06-07 11:48:19,906 [INFO] agent.workflow: Routing back to regenerate SQL after execution error.
+2026-06-07 11:48:19,908 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL Execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    customers c ON s.customer_id = c.id
+JOIN 
+    products p ON s.product_id = p.product_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 11:48:19,911 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 11:48:19,911 [INFO] agent.workflow: Attempting SQL refinement. Retry count: 1
+2026-06-07 11:48:19,913 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 11:48:33,944 [INFO] agent.workflow: Extracted SQL: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    customers c
+JOIN 
+    products p ON c.id = p.customer_id
+JOIN 
+    analytics_sample_30_records s ON p.product_id = s.product_id
+GROUP BY 
+    c.category;
+2026-06-07 11:48:33,944 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 11:48:33,944 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 11:48:33,963 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 11:48:33,964 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 11:48:33,964 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 11:48:33,964 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    customers c
+JOIN 
+    products p ON c.id = p.customer_id
+JOIN 
+    analytics_sample_30_records s ON p.product_id = s.product_id
+GROUP BY 
+    c.category;
+2026-06-07 11:48:33,975 [ERROR] services.sqlite_service: Read-only query execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    customers c
+JOIN 
+    products p ON c.id = p.customer_id
+JOIN 
+    analytics_sample_30_records s ON p.product_id = s.product_id
+GROUP BY 
+    c.category;': no such column: c.category | Query: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    customers c
+JOIN 
+    products p ON c.id = p.customer_id
+JOIN 
+    analytics_sample_30_records s ON p.product_id = s.product_id
+GROUP BY 
+    c.category;
+2026-06-07 11:48:33,980 [ERROR] tools.sql_tool: SQL execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    customers c
+JOIN 
+    products p ON c.id = p.customer_id
+JOIN 
+    analytics_sample_30_records s ON p.product_id = s.product_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 11:48:33,980 [WARNING] agent.workflow: SQL execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    customers c
+JOIN 
+    products p ON c.id = p.customer_id
+JOIN 
+    analytics_sample_30_records s ON p.product_id = s.product_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 11:48:33,980 [INFO] agent.retry_logic: Retry Check - Count: 2/3 | Has errors: True | Success: False | Can retry: True
+2026-06-07 11:48:33,980 [INFO] agent.workflow: Routing back to regenerate SQL after execution error.
+2026-06-07 11:48:33,980 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL Execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    customers c
+JOIN 
+    products p ON c.id = p.customer_id
+JOIN 
+    analytics_sample_30_records s ON p.product_id = s.product_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 11:48:33,983 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 11:48:33,985 [INFO] agent.workflow: Attempting SQL refinement. Retry count: 2
+2026-06-07 11:48:33,985 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 11:48:45,522 [INFO] agent.workflow: Extracted SQL: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    customers c
+JOIN 
+    products p ON c.id = p.customer_id
+GROUP BY 
+    c.category;
+2026-06-07 11:48:45,523 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 11:48:45,525 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 11:48:45,530 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 11:48:45,532 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 11:48:45,534 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 11:48:45,534 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    customers c
+JOIN 
+    products p ON c.id = p.customer_id
+GROUP BY 
+    c.category;
+2026-06-07 11:48:45,542 [ERROR] services.sqlite_service: Read-only query execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    customers c
+JOIN 
+    products p ON c.id = p.customer_id
+GROUP BY 
+    c.category;': no such column: c.category | Query: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    customers c
+JOIN 
+    products p ON c.id = p.customer_id
+GROUP BY 
+    c.category;
+2026-06-07 11:48:45,542 [ERROR] tools.sql_tool: SQL execution failed: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    customers c
+JOIN 
+    products p ON c.id = p.customer_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 11:48:45,542 [WARNING] agent.workflow: SQL execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    customers c
+JOIN 
+    products p ON c.id = p.customer_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 11:48:45,542 [INFO] agent.retry_logic: Retry Check - Count: 3/3 | Has errors: True | Success: False | Can retry: False
+2026-06-07 11:48:45,542 [INFO] agent.workflow: Max retries exceeded or retry disallowed. Exiting.
+2026-06-07 11:48:45,542 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL Execution error: SQL Execution Error: Execution failed on sql 'SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    customers c
+JOIN 
+    products p ON c.id = p.customer_id
+GROUP BY 
+    c.category;': no such column: c.category
+2026-06-07 11:48:45,600 [INFO] services.history_service: Logged query history entry. Success: False
+2026-06-07 11:49:23,801 [INFO] agent.graph: Initializing LangGraph workflow builder...
+2026-06-07 11:49:23,801 [INFO] agent.graph: Compiling StateGraph flow...
+2026-06-07 11:49:24,791 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 11:49:24,797 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 11:49:24,831 [INFO] tools.schema_tool: Discovering database schema...
+2026-06-07 11:49:24,851 [INFO] tools.schema_tool: Schema discovered successfully: ['analytics_sample_30_records', 'analytics_sample_30_records_1', 'analytics_sample_30_records_2', 'customers', 'orders_1', 'products', 'sales', 'test_csv_data']
+2026-06-07 11:49:54,293 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 11:49:54,297 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 11:49:54,308 [INFO] services.upload_service: Saved uploaded file to uploads\analytics_sample_30_records_3.csv
+2026-06-07 11:49:54,349 [INFO] services.upload_service: Successfully imported table 'analytics_sample_30_records_3' with 30 rows.
+2026-06-07 11:49:54,354 [INFO] tools.schema_tool: Database schema cache invalidated.
+2026-06-07 11:49:54,364 [INFO] tools.schema_tool: Discovering database schema...
+2026-06-07 11:49:54,379 [INFO] tools.schema_tool: Schema discovered successfully: ['analytics_sample_30_records', 'analytics_sample_30_records_1', 'analytics_sample_30_records_2', 'analytics_sample_30_records_3', 'customers', 'orders_1', 'products', 'sales', 'test_csv_data']
+2026-06-07 11:49:59,900 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 11:49:59,904 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 11:50:00,015 [INFO] agent.controller: Controller starting stream for query: 'Show quantity sold by category.'
+2026-06-07 11:50:00,023 [INFO] agent.workflow: --- NODE: Discover Schema ---
+2026-06-07 11:50:00,025 [INFO] ui.dashboard: Node execution: discover_schema | Status: Schema discovered successfully.
+2026-06-07 11:50:00,030 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 11:50:00,031 [INFO] agent.workflow: Attempting first-time SQL generation.
+2026-06-07 11:50:00,031 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 11:50:08,481 [INFO] agent.workflow: Extracted SQL: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    analytics_sample_30_records_1 c ON s.orderid = c.orderid AND s.date = c.date
+GROUP BY 
+    c.category;
+2026-06-07 11:50:08,482 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 11:50:08,483 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 11:50:08,502 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 11:50:08,504 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 11:50:08,504 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 11:50:08,506 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    analytics_sample_30_records_1 c ON s.orderid = c.orderid AND s.date = c.date
+GROUP BY 
+    c.category;
+2026-06-07 11:50:08,561 [INFO] tools.sql_tool: SQL query executed successfully in 46.72ms. Rows returned: 3
+2026-06-07 11:50:08,564 [INFO] agent.workflow: SQL executed successfully.
+2026-06-07 11:50:08,564 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL executed successfully.
+2026-06-07 11:50:08,568 [INFO] agent.workflow: --- NODE: Explain Results ---
+2026-06-07 11:50:08,570 [INFO] tools.explanation_tool: Generating business explanation for query results...
+2026-06-07 11:50:08,581 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 11:50:25,701 [INFO] ui.dashboard: Node execution: explain_result | Status: Explanation generated.
+2026-06-07 11:50:25,703 [INFO] agent.workflow: --- NODE: Generate Chart ---
+2026-06-07 11:50:25,704 [INFO] tools.chart_tool: Column detection - Dates: [], Numerics: ['total_quantity_sold'], Categoricals: ['category']
+2026-06-07 11:50:26,040 [INFO] ui.dashboard: Node execution: generate_chart | Status: Workflow completed.
+2026-06-07 11:50:26,108 [INFO] services.history_service: Logged query history entry. Success: True
+2026-06-07 11:50:30,173 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 11:50:30,173 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 11:51:48,684 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 11:51:48,691 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 11:52:54,003 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 11:52:54,008 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 11:52:54,107 [INFO] agent.controller: Controller starting stream for query: 'Show quantity sold by category.'
+2026-06-07 11:52:54,109 [INFO] agent.workflow: --- NODE: Discover Schema ---
+2026-06-07 11:52:54,112 [INFO] ui.dashboard: Node execution: discover_schema | Status: Schema discovered successfully.
+2026-06-07 11:52:54,115 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 11:52:54,115 [INFO] agent.workflow: Attempting first-time SQL generation.
+2026-06-07 11:52:54,116 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 11:53:00,037 [INFO] agent.workflow: Extracted SQL: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    analytics_sample_30_records_1 c ON s.orderid = c.orderid AND s.date = c.date
+GROUP BY 
+    c.category;
+2026-06-07 11:53:00,039 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 11:53:00,041 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 11:53:00,049 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 11:53:00,051 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 11:53:00,053 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 11:53:00,053 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    analytics_sample_30_records_1 c ON s.orderid = c.orderid AND s.date = c.date
+GROUP BY 
+    c.category;
+2026-06-07 11:53:00,067 [INFO] tools.sql_tool: SQL query executed successfully in 2.84ms. Rows returned: 3
+2026-06-07 11:53:00,067 [INFO] agent.workflow: SQL executed successfully.
+2026-06-07 11:53:00,068 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL executed successfully.
+2026-06-07 11:53:00,070 [INFO] agent.workflow: --- NODE: Explain Results ---
+2026-06-07 11:53:00,071 [INFO] tools.explanation_tool: Generating business explanation for query results...
+2026-06-07 11:53:00,072 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 11:53:15,139 [INFO] ui.dashboard: Node execution: explain_result | Status: Explanation generated.
+2026-06-07 11:53:15,141 [INFO] agent.workflow: --- NODE: Generate Chart ---
+2026-06-07 11:53:15,142 [INFO] tools.chart_tool: Column detection - Dates: [], Numerics: ['total_quantity_sold'], Categoricals: ['category']
+2026-06-07 11:53:15,207 [INFO] ui.dashboard: Node execution: generate_chart | Status: Workflow completed.
+2026-06-07 11:53:15,246 [INFO] services.history_service: Logged query history entry. Success: True
+2026-06-07 12:05:46,325 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 12:05:46,332 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 12:06:31,428 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 12:06:31,436 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 12:06:57,220 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 12:06:57,227 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 12:06:57,345 [INFO] agent.controller: Controller starting stream for query: 'Show quantity sold by category.'
+2026-06-07 12:06:57,347 [INFO] agent.workflow: --- NODE: Discover Schema ---
+2026-06-07 12:06:57,349 [INFO] ui.dashboard: Node execution: discover_schema | Status: Schema discovered successfully.
+2026-06-07 12:06:57,352 [INFO] agent.workflow: --- NODE: Generate SQL ---
+2026-06-07 12:06:57,353 [INFO] agent.workflow: Attempting first-time SQL generation.
+2026-06-07 12:06:57,354 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 12:07:12,879 [INFO] agent.workflow: Extracted SQL: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    analytics_sample_30_records_1 c ON s.orderid = c.orderid AND s.date = c.date
+GROUP BY 
+    c.category;
+2026-06-07 12:07:12,880 [INFO] ui.dashboard: Node execution: generate_sql | Status: SQL query generated.
+2026-06-07 12:07:12,882 [INFO] agent.workflow: --- NODE: Validate SQL ---
+2026-06-07 12:07:12,891 [INFO] agent.workflow: SQL validation passed.
+2026-06-07 12:07:12,893 [INFO] ui.dashboard: Node execution: validate_sql | Status: SQL validation passed.
+2026-06-07 12:07:12,895 [INFO] agent.workflow: --- NODE: Execute SQL ---
+2026-06-07 12:07:12,896 [INFO] tools.sql_tool: Validating and executing SQL query: SELECT 
+    c.category,
+    SUM(s.quantity) AS total_quantity_sold
+FROM 
+    analytics_sample_30_records s
+JOIN 
+    analytics_sample_30_records_1 c ON s.orderid = c.orderid AND s.date = c.date
+GROUP BY 
+    c.category;
+2026-06-07 12:07:12,907 [INFO] tools.sql_tool: SQL query executed successfully in 2.30ms. Rows returned: 3
+2026-06-07 12:07:12,907 [INFO] agent.workflow: SQL executed successfully.
+2026-06-07 12:07:12,909 [INFO] ui.dashboard: Node execution: execute_sql | Status: SQL executed successfully.
+2026-06-07 12:07:12,912 [INFO] agent.workflow: --- NODE: Explain Results ---
+2026-06-07 12:07:12,913 [INFO] tools.explanation_tool: Generating business explanation for query results...
+2026-06-07 12:07:12,914 [INFO] services.llm_service: Invoking Ollama model 'llama3.2:1b' at 'http://localhost:11434/api/chat'
+2026-06-07 12:07:31,968 [INFO] ui.dashboard: Node execution: explain_result | Status: Explanation generated.
+2026-06-07 12:07:31,969 [INFO] agent.workflow: --- NODE: Generate Chart ---
+2026-06-07 12:07:31,970 [INFO] tools.chart_tool: Column detection - Dates: [], Numerics: ['total_quantity_sold'], Categoricals: ['category']
+2026-06-07 12:07:32,032 [INFO] ui.dashboard: Node execution: generate_chart | Status: Workflow completed.
+2026-06-07 12:07:32,044 [INFO] services.history_service: Logged query history entry. Success: True
+2026-06-07 20:35:44,312 [INFO] agent.graph: Initializing LangGraph workflow builder...
+2026-06-07 20:35:44,312 [INFO] agent.graph: Compiling StateGraph flow...
+2026-06-07 20:35:44,601 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 20:35:44,614 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 20:35:44,623 [INFO] tools.schema_tool: Discovering database schema...
+2026-06-07 20:35:44,626 [INFO] tools.schema_tool: Schema discovered successfully: ['analytics_sample_30_records', 'analytics_sample_30_records_1', 'analytics_sample_30_records_2', 'analytics_sample_30_records_3', 'customers', 'orders_1', 'products', 'sales', 'test_csv_data']
+2026-06-07 20:36:52,680 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 20:36:52,689 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 20:37:12,322 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 20:37:12,331 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 20:37:20,614 [INFO] __main__: Starting AnalyticsGPT Application...
+2026-06-07 20:37:20,621 [INFO] database.db_manager: Database initialized successfully.
+2026-06-07 20:37:20,625 [INFO] services.upload_service: Saved uploaded file to uploads\analytics_sample_30_records_4.csv
+2026-06-07 20:37:20,673 [INFO] services.upload_service: Successfully imported table 'analytics_sample_30_records_4' with 30 rows.
+2026-06-07 20:37:20,673 [INFO] tools.schema_tool: Database schema cache invalidated.
+2026-06-07 20:37:20,689 [INFO] tools.schema_tool: Discovering database schema...
+2026-06-07 20:37:20,716 [INFO] tools.schema_tool: Schema discovered successfully: ['analytics_sample_30_records', 'analytics_sample_30_records_1', 'analytics_sample_30_records_2', 'analytics_sample_30_records_3', 'analytics_sample_30_records_4', 'customers', 'orders_1', 'products', 'sales', 'test_csv_data']
