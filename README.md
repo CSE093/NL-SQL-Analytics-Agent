@@ -1,8 +1,12 @@
-# AnalyticsGPT: Natural Language to SQL Analytics Agent
+# InsightSQL Agent
 
-AnalyticsGPT is a production-ready Business Intelligence agent built with Streamlit, LangGraph, and SQLite. It allows business managers and analysts to upload CSV or Excel datasets and query them using plain natural language questions.
+**NL-to-SQL Analytics Agent** — Ask business questions in plain English, get safe SQL, interactive charts, and AI-powered insights.
 
-The agent automatically discovers the database schema, constructs valid SQL queries, validates query safety to prevent modifications, executes them, visualizes data in Plotly charts, and writes plain-English summaries.
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-UI-orange)](https://streamlit.io/)
+[![SQLite](https://img.shields.io/badge/SQLite-Database-blue)](https://www.sqlite.org/)
+[![Ollama](https://img.shields.io/badge/LLM-Ollama-purple)](https://ollama.com/)
+[![LangGraph](https://img.shields.io/badge/LangGraph-Workflow-green)](https://www.langgraph.ai/)
 
 ---
 
@@ -12,81 +16,136 @@ https://youtu.be/s5QdFiCZPCc
 
 ---
 
-## 🛠️ Architecture Overview
+## Project Screenshots
 
-The system utilizes a multi-layered design separating frontend dashboard layouts, LangGraph workflow loops, database services, and safety tools:
+<table>
+  <tr>
+    <td><img src="output/pic1.png" alt="Dashboard screenshot 1" width="260" /></td>
+    <td><img src="output/pic2.png" alt="Dashboard screenshot 2" width="260" /></td>
+    <td><img src="output/pic3.png" alt="Dashboard screenshot 3" width="260" /></td>
+    <td><img src="output/pic4.png" alt="Dashboard screenshot 4" width="260" /></td>
+  </tr>
+</table>
+
+---
+
+## Project Overview
+
+AnalyticsGPT converts natural language questions into SQL using a local Ollama LLM. It automatically discovers schema from uploaded data, validates SQL with a safety layer, executes the query on a read-only SQLite connection, and shows the result with charts and explanations.
+
+---
+
+## Features
+
+- Natural language to SQL conversion
+- CSV and Excel dataset ingestion
+- Dynamic schema discovery
+- Read-only SQLite execution
+- SQL safety validation to block dangerous statements
+- Automatic chart visualization
+- Business explanation generation
+- Download results as CSV/Excel
+- Persistent query history
+- Streamlit dashboard UI
+
+---
+
+## System Architecture
+
+The application follows a secure workflow:
+
+1. Upload CSV/Excel files
+2. Discover database schema
+3. Generate SQL via Ollama
+4. Validate SQL for safety
+5. Execute read-only query
+6. Display results, charts, and explanations
+
+Key components:
+- `app.py` — Streamlit entrypoint
+- `agent/` — LLM workflow and retries
+- `services/` — database, upload, and Ollama integration
+- `tools/` — SQL validation, schema formatting, and chart generation
+- `ui/` — dashboard rendering and sidebar controls
+
+---
+
+## Tech Stack
+
+- **Frontend:** Streamlit
+- **Database:** SQLite
+- **AI:** Ollama local LLM
+- **Data:** Pandas
+- **Charts:** Plotly
+- **Testing:** pytest
+
+---
+
+## Project Structure
 
 ```text
 analytics-agent/
-│
-├── app.py
-├── requirements.txt
-├── .env.example
-│
-├── database/
-│   └── db_manager.py
-│
-├── uploads/
-│
-├── agent/
-│   ├── state.py
-│   ├── prompts.py
-│   ├── workflow.py
-│   ├── graph.py
-│   ├── controller.py
-│   └── retry_logic.py
-│
-├── tools/
-│   ├── schema_tool.py
-│   ├── validator.py
-│   ├── sql_tool.py
-│   ├── chart_tool.py
-│   └── explanation_tool.py
-│
-├── services/
-│   ├── upload_service.py
-│   ├── sqlite_service.py
-│   ├── history_service.py
-│   └── llm_service.py
-│
-├── ui/
-│   ├── sidebar.py
-│   ├── dashboard.py
-│   └── components.py
-│
-└── tests/
+|-- app.py
+|-- requirements.txt
+|-- .env.example
+|-- database/
+|   |-- db_manager.py
+|-- uploads/
+|-- agent/
+|   |-- state.py
+|   |-- prompts.py
+|   |-- workflow.py
+|   |-- graph.py
+|   |-- controller.py
+|   |-- retry_logic.py
+|-- tools/
+|   |-- schema_tool.py
+|   |-- validator.py
+|   |-- sql_tool.py
+|   |-- chart_tool.py
+|   |-- explanation_tool.py
+|-- services/
+|   |-- upload_service.py
+|   |-- sqlite_service.py
+|   |-- history_service.py
+|   |-- llm_service.py
+|-- ui/
+|   |-- sidebar.py
+|   |-- dashboard.py
+|   |-- components.py
+|-- docs/
+|   |-- AGENT_FLOW.md
+|   |-- AI_USAGE_NOTE.md
+|   |-- PROMPTS.md
+|   |-- TEST_CASES.md
+|-- tests/
+|-- uploads/
 ```
 
 ---
 
-## 🚀 Installation & Setup
+## Quick Start
 
-### 1. Prerequisites (Ollama LLM)
+### 1. Install
 
-1. Install Ollama.
-2. Start Ollama.
-3. Pull a model:
-
-```bash
-ollama pull llama3.1
-```
-
-### 2. Create Virtual Environment
-
-```bash
+```powershell
+cd "E:\NL to SQL\NL to SQL"
 python -m venv venv
-venv\Scripts\Activate.ps1
-```
-
-### 3. Install Dependencies
-
-```bash
+& "E:\NL to SQL\venv\Scripts\Activate.ps1"
 pip install -r requirements.txt
 ```
 
-### 4. Configure Environment Variables
+### 2. LLM Setup
 
-Create a `.env` file:
+Install and start Ollama, then pull a model:
+
+```powershell
+ollama pull llama3.2:1b
+```
+
+### 3. Configure Environment
+
+Create `.env` based on `.env.example` and set:
 
 ```env
 OLLAMA_BASE_URL=http://localhost:11434
@@ -95,11 +154,9 @@ DATABASE_PATH=database/user_data.db
 LOG_LEVEL=INFO
 ```
 
----
+### 4. Run
 
-## 🖥️ Running the Application
-
-```bash
+```powershell
 streamlit run app.py
 ```
 
@@ -111,57 +168,62 @@ http://localhost:8501
 
 ---
 
-## 🧪 Running Tests
+## Sample Questions
 
-```bash
+- Show total revenue by Category
+- What is the total quantity sold by City?
+- Show revenue by Product
+- What are the top products by revenue?
+- How many orders were placed in each City?
+
+---
+
+## Tests
+
+Run the automated test suite:
+
+```powershell
 pytest tests/
 ```
 
----
-
-## ✨ Features
-
-- Natural Language to SQL conversion
-- CSV and Excel upload support
-- Dynamic schema discovery
-- SQLite database integration
-- SQL safety validation
-- Automatic chart generation
-- Business insights and explanations
-- CSV and Excel export
-- Query history tracking
-- Streamlit dashboard UI
+The existing suite covers upload sanitization, SQL validation, query execution, and agent retry behavior.
 
 ---
 
-## 🔮 Future Improvements
+## Security
 
-1. Multi-turn chat conversations
-2. Schema relationship detection
-3. Advanced CSV cleaning
-4. User authentication
-5. Cloud deployment
+- Only `SELECT` and `WITH` queries are allowed
+- Mutating SQL is blocked (`INSERT`, `UPDATE`, `DELETE`, `DROP`, `ALTER`, `TRUNCATE`)
+- The query engine uses a read-only SQLite connection for safety
+- Multiple statements are rejected
 
 ---
 
-## 👥 Team Resumes
+## Environment Variables
 
-Create a folder named:
+Copy `.env.example` to `.env` and configure:
 
-```text
-resumes/
-```
+- `OLLAMA_BASE_URL` — local Ollama server URL
+- `OLLAMA_MODEL` — model name, e.g. `llama3.2:1b`
+- `DATABASE_PATH` — SQLite path
+- `LOG_LEVEL` — log verbosity
 
-Add all team resumes as PDF files.
+---
 
-Example:
+## Documentation
 
-```text
-resumes/
-├── Mohana_Priya_Resume.pdf
-├── Member2_Resume.pdf
-├── Member3_Resume.pdf
-```
+- `docs/PROMPTS.md` — prompt templates used by the agent
+- `docs/AI_USAGE_NOTE.md` — prompt engineering and AI behavior notes
+- `docs/AGENT_FLOW.md` — workflow and agent loop design
+- `docs/TEST_CASES.md` — happy-path test case documentation
+
+---
+
+## Future Improvements
+
+- Advanced CSV cleaning and normalization
+- User authentication and multi-user support
+- Cloud deployment and remote hosting
 
 ---
 
